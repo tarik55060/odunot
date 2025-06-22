@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<title>Tıp Not Hesaplayıcı - Dönemler</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f0f4f8; margin:20px; }
+  .tabs {
+    display: flex;
+    border-bottom: 2px solid #0077aa;
+    margin-bottom: 20px;
+  }
+  .tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: #d9e9f9;
+    border: 1px solid #0077aa;
+    border-bottom: none;
+    margin-right: 5px;
+    border-radius: 8px 8px 0 0;
+    user-select: none;
+  }
+  .tab.active {
+    background: white;
+    font-weight: bold;
+    border-bottom: 2px solid white;
+  }
+  .tab-content {
+    background: white;
+    padding: 20px;
+    border: 1px solid #0077aa;
+    border-radius: 0 8px 8px 8px;
+  }
+  .kurul-group {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    background: #f9fafb;
+  }
+  .kurul-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .notlar-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .notlar-container input[type="number"] {
+    width: 80px;
+    padding: 6px;
+    font-size: 16px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    text-align: center;
+  }
+  button.calc-btn {
+    background: #0077aa;
+    color: white;
+    border: none;
+    padding: 10px 0;
+    font-size: 17px;
+    border-radius: 7px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  button.calc-btn:hover {
+    background: #005f88;
+  }
+  #sonuc {
+    margin-top: 15px;
+    padding: 15px;
+    background: #e8f0fe;
+    border-left: 5px solid #0077aa;
+    font-weight: 600;
+    white-space: pre-line;
+  }
+</style>
+</head>
+<body>
+
+<h1 style="text-align:center; color:#004d66;">Tıp Fakültesi Not Hesaplayıcı</h1>
+
+<div class="tabs">
+  <div class="tab active" data-donem="1">Dönem 1</div>
+  <div class="tab" data-donem="2">Dönem 2</div>
+  <div class="tab" data-donem="3">Dönem 3</div>
+</div>
+
+<!-- Dönem 1 -->
+<div class="tab-content" id="donem-1">
+  <div class="kurul-group"><div class="kurul-label">Tıbbi Bilimlere Giriş</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Hücre 1</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Hücre 2</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Kemik & Eklem</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Kas & Sinir Dokuları</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <button class="calc-btn" onclick="hesapla(1)">Dönem 1 Notlarını Hesapla</button>
+</div>
+
+<!-- Dönem 2 -->
+<div class="tab-content" id="donem-2" style="display:none;">
+  <div class="kurul-group"><div class="kurul-label">Kan-Lenf & Bağışıklık</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Dolaşım & Solunum</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Sindirim & Metabolizma</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Nörokomite</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Endokrin & Ürogenital</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Hastalıkların Biyolojik Temelleri</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <button class="calc-btn" onclick="hesapla(2)">Dönem 2 Notlarını Hesapla</button>
+</div>
+
+<!-- Dönem 3 -->
+<div class="tab-content" id="donem-3" style="display:none;">
+  <div class="kurul-group"><div class="kurul-label">Neoplazi & Hematop.</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Enfeksiyon</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Solunum & Dolaşım</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Gastrointestinal</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Endokrin & Ürogenital</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Nöroloji & İskelet Kas</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <div class="kurul-group"><div class="kurul-label">Halk Sağlığı</div><div class="notlar-container"><input type="number" min="0" max="100" step="0.5" /></div></div>
+  <button class="calc-btn" onclick="hesapla(3)">Dönem 3 Notlarını Hesapla</button>
+</div>
+
+<div id="sonuc" style="max-width:700px; margin: 30px auto;"></div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const tabContents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const donem = tab.getAttribute('data-donem');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      tabContents.forEach(tc => {
+        tc.style.display = tc.id === 'donem-' + donem ? 'block' : 'none';
+      });
+      document.getElementById('sonuc').innerText = '';
+    });
+  });
+
+  function yuvarla0_5e(y) {
+    return Math.ceil(y * 2) / 2;
+  }
+
+  function hesapla(donem) {
+    const donemDiv = document.getElementById('donem-' + donem);
+    const kurulGruplari = donemDiv.querySelectorAll('.kurul-group');
+    let notlar = [];
+
+    for (const kurul of kurulGruplari) {
+      const input = kurul.querySelector('input[type="number"]');
+      const val = parseFloat(input.value);
+      if (isNaN(val)) {
+        document.getElementById('sonuc').innerText = "❗ Lütfen tüm kurul notlarını eksiksiz girin.";
+        return;
+      }
+      if (val < 0 || val > 100) {
+        document.getElementById('sonuc').innerText = "❗ Notlar 0-100 arasında olmalı.";
+        return;
+      }
+      notlar.push(val);
+    }
+
+    const ortalama = Math.round(notlar.reduce((a, b) => a + b, 0) / notlar.length);
+
+    let finalNotu = prompt("📘 Dönem " + donem + " final veya bütünleme notunuzu girin (0-100):");
+    finalNotu = parseFloat(finalNotu);
+    if (isNaN(finalNotu) || finalNotu < 0 || finalNotu > 100) {
+      alert("⚠️ Geçerli bir final notu girilmedi!");
+      return;
+    }
+
+    let donemSonuNotu = Math.round(ortalama * 0.6 + finalNotu * 0.4);
+
+    let mesaj = `📚 Dönem ${donem} Kurul Ortalaması: ${ortalama}
+🎯 Dönem Sonu Notu: ${donemSonuNotu}`;
+
+    if (finalNotu < 50 || donemSonuNotu < 60) {
+      mesaj += "
+🚫 Başarısız (Kaldınız)";
+      const gerekenFinal = (60 - ortalama * 0.6) / 0.4;
+      if (gerekenFinal > 100) {
+        mesaj += "
+😢 Bu ortalamayla geçmek mümkün değil.";
+      } else {
+        mesaj += `
+👉 Geçmek için finalden en az ${yuvarla0_5e(gerekenFinal)} almalısınız.`;
+      }
+    } else {
+      mesaj += "
+✅ Başarılı (Geçtiniz)";
+    }
+
+    document.getElementById('sonuc').innerText = mesaj;
+  }
+</script>
+
+</body>
+</html>
